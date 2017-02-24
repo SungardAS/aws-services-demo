@@ -14,6 +14,12 @@ exports.handler = (event, context) => {
   if (postData && typeof(postData) == "string") postData = JSON.parse(postData);
   var authorizer = (event.requestContext) ? event.requestContext.authorizer: null;
 
+  // temporary fix for the CORS issue of Custom Authorizer in non 200 Http responses
+  if (authorizer && authorizer.error) {
+    // authorization is failed, so return failure response
+    sendFailureResponse({error: authorizer.error}, 403, context, authorizer);
+  }
+
   var credentials = null;
   if (event.headers.Credentials) {
     credentials = JSON.parse(new Buffer(event.headers.Credentials, 'base64').toString())
@@ -27,7 +33,7 @@ exports.handler = (event, context) => {
     this[method](params, function(err, data) {
       if (err) {
         console.log(err);
-        sendFailureResponse({error: err}, 200, context, authorizer);
+        sendFailureResponse({error: err}, 500, context, authorizer);
       }
       else {
         console.log(data);
