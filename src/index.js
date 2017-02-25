@@ -18,7 +18,7 @@ baseHandler.get = function(params, callback) {
   kms.decrypt(params).promise().then(function(data) {
     var decrypted = data.Plaintext.toString();
     console.log(decrypted);
-    return callback(null, {decrypted: decrypted});
+    return callback(null, {'userGuid': params.userGuid, decrypted: decrypted});
   }).catch(function(err) {
     return callback(err);
   });
