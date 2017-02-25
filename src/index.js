@@ -10,6 +10,7 @@ baseHandler.get = function(params, callback) {
 
   var kmsRegion = process.env.KMS_REGION;
   var secretValue = process.env.SECRET_VALUE;
+  var userGuid = params.userGuid;
 
   var kms = new AWS.KMS({region: kmsRegion});
   var params = {
@@ -18,7 +19,7 @@ baseHandler.get = function(params, callback) {
   kms.decrypt(params).promise().then(function(data) {
     var decrypted = data.Plaintext.toString();
     console.log(decrypted);
-    return callback(null, {'userGuid': params.userGuid, decrypted: decrypted});
+    return callback(null, {'userGuid': userGuid, decrypted: decrypted});
   }).catch(function(err) {
     return callback(err);
   });
