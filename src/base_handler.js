@@ -21,15 +21,15 @@ exports.handler = (event, context) => {
   }
 
   var credentials = null;
-  if (event.headers.Credentials) {
-    credentials = JSON.parse(new Buffer(event.headers.Credentials, 'base64').toString())
+  if (event.headers.credentials) {
+    credentials = JSON.parse(new Buffer(event.headers.credentials, 'base64').toString())
   }
   console.log(credentials);
 
   try {
     var params = postData;
     if (method == 'get') params = queryParams;
-    params['Credentials'] = credentials;
+    params['credentials'] = credentials;
     if (authorizer) params['userGuid'] = authorizer.user_guid;
     console.log(params)
     this[method](params, function(err, data) {

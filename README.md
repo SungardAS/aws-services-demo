@@ -33,7 +33,7 @@ Input Parameter Values
 
 - GitHubPersonalAccessToken:
 
-  `Access Token` for CodeBuild to access to the this Github repository. (See <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">here</a> to find how to genernate the access token).
+  `Access Token` for CodeBuild to access to the this Github repository. (See <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">here</a> to find how to generate the access token).
 
 - GitHubSourceRepositoryBranch: `master`
 
